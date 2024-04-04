@@ -1,0 +1,17 @@
+# code18-1
+import ulab as np
+a = np.arange(8)
+b = np.arange(8,dtype=np.float)
+c = np.arange(1,5)
+d = np.arange(1,5,2)
+e = np.ones((3,3),dtype=np.uint8)
+f = np.zeros((3,3))
+g = np.eye(3)
+h = np.eye(3, dtype=np.int8)
+i = np.linspace(10,2,5)
+j = np.linspace(-2, 8, 10)
+print("{}/{}\n{}/{}".format(a,len(a),b,len(b)))
+print("{}/{}\n{}/{}".format(c,len(c),d,len(d)))
+print("{}/{}\n{}/{}".format(e,len(e),f,len(f)))
+print("{}/{}\n{}/{}".format(g,len(g),h,len(h)))
+print("{}/{}\n{}/{}".format(i,len(i),j,len(j)))
