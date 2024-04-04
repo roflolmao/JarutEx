@@ -1,0 +1,37 @@
+# code18-11
+import ulab as np
+import time
+import esp32
+
+data1d = np.array([1,3,5,7,9],dtype=np.float)
+data2d = np.array([[3,5,7],[9,11,13],[15,17,19]], dtype=np.float)
+
+print("Original 1D ..... : {}".format(data1d))
+print("Original 2D ..... : {}".format(data2d))
+print("1D flip ......... : {}".format(np.numerical.flip(data1d)))
+np.numerical.roll(data1d,-1)
+print("1D left ......... : {}".format(data1d))
+np.numerical.roll(data1d,1)
+print("1D right ........ : {}".format(data1d))
+print("2D H-flip ....... : {}".format(np.numerical.flip(data2d,axis=0)))
+print("2D V-flip ....... : {}".format(np.numerical.flip(data2d,axis=1)))
+np.numerical.roll(data2d,-1, axis=0)
+print("2D H-left ....... : {}".format(data2d))
+np.numerical.roll(data2d, 1, axis=0)
+print("2D H-right ...... : {}".format(data2d))
+np.numerical.roll(data2d,-1, axis=1)
+print("2D V-up ......... : {}".format(data2d))
+np.numerical.roll(data2d, 1, axis=1)
+print("2D V-down ....... : {}".format(data2d))
+np.numerical.sort(data1d)
+print("Sorted 1D ....... : {}".format(data1d))
+np.numerical.roll(data2d,1,axis=1)
+np.numerical.sort(data2d,axis=0)
+print("Sorted 2D-H ..... : {}".format(data2d))
+np.numerical.roll(data2d,-2,axis=0)
+np.numerical.sort(data2d,axis=1)
+print("Sorted 2D-V ..... : {}".format(data2d))
+np.numerical.roll(data2d,-2,axis=0)
+np.numerical.roll(data2d,1,axis=1)
+print("argsort 2D-H .... : {}".format(np.numerical.argsort(data2d,axis=0)))
+print("argsort 2D-V .... : {}".format(np.numerical.argsort(data2d,axis=1)))
