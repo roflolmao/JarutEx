@@ -1,0 +1,95 @@
+# code12-1
+import esp
+import time
+import gc
+import machine as mc
+gc.enable()
+gc.collect()
+mc.freq(160000000)
+servoL = mc.PWM(mc.Pin(5,mc.Pin.OUT),freq=50) # D1 คุมมอเตอร์ซ้าย
+servoR = mc.PWM(mc.Pin(4,mc.Pin.OUT),freq=50) # D2 คุมมอเตอร์ขวา
+servoU = mc.PWM(mc.Pin(2,mc.Pin.OUT),freq=50) # D4 คุม Ultrasonic
+trigPin = mc.Pin(14,mc.Pin.OUT) # D5
+echoPin = mc.Pin(12,mc.Pin.IN) # D6
+trigPin.value(0)
+waitTime = 350
+time.sleep_ms(3000) # wait
+
+def distance():
+    echoPin.value()
+    trigPin.on()
+    trigPin.off()
+    usec = mc.time_pulse_us( echoPin, 1 )
+    echoTime = usec/1000000
+    distanceCm = (echoTime/2)*34300
+    return distanceCm
+
+def sensorMoveCenter():
+    global servoU
+    servoU.duty(70)
+    time.sleep_ms(waitTime)
+    
+def sensorMoveLeft():
+    global servoU
+    servoU.duty(90)
+    time.sleep_ms(waitTime)
+
+def sensorMoveRight():
+    global servoU
+    servoU.duty(50)
+    time.sleep_ms(waitTime)
+
+def robotForward():
+    global servoL,servoR
+    servoL.duty(120)
+    servoR.duty(40)
+
+def robotStop():
+    global servoL,servoR
+    servoL.duty(0)
+    servoR.duty(0)
+    
+def robotBackward():
+    global servoL,servoR
+    servoL.duty(40)
+    servoR.duty(120)
+    
+def robotTurnRight():
+    global servoL,servoR
+    servoL.duty(120)
+    servoR.duty(120)
+    
+def robotTurnLeft():
+    global servoL,servoR
+    servoL.duty(40)
+    servoR.duty(40)
+
+while True:
+    robotStop()
+    time.sleep_ms(100)
+    sensorMoveLeft()
+    distLeft = distance()
+    sensorMoveRight()
+    time.sleep_ms(waitTime)
+    distRight = distance()
+    sensorMoveCenter()
+    distCenter = distance()
+    print("distance at left/right/center = {}/{}/{} cm.".format(distLeft,distRight,distCenter))
+    if (distCenter < 13.0) or (distLeft < 13.0) or (distRight < 13.0):
+        robotBackward()
+        print("backward")
+        time.sleep_ms(2*waitTime)
+    else:
+        if (distLeft > distRight) and (distLeft > distCenter):
+            print("Left")
+            robotTurnLeft()
+            time.sleep_ms(waitTime)
+            robotStop()
+        if (distRight > distLeft) and (distRight > distCenter):
+            print("right")
+            robotTurnRight()
+            time.sleep_ms(waitTime)
+            robotStop()
+        robotForward()
+        print("Forward")
+        time.sleep_ms(waitTime)
