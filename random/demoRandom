@@ -1,0 +1,18 @@
+# demoRandom
+import random
+
+print("สุ่มตัวเลขขนาด 8 บิต")
+for i in range(2):
+    msg = "สุ่มครั้งที่ {} : ".format(i+1)
+    for n in range(8):
+        msg += str(random.getrandbits(8))
+        msg += ","
+    print(msg)
+print("สุ่มตัวเลขขนาด 8 บิต ตั้ง seed เป็น 10")
+for i in range(2):
+    random.seed(10)
+    msg = "สุ่มครั้งที่ {} : ".format(i+1)
+    for n in range(8):
+        msg += str(random.getrandbits(8))
+        msg += ","
+    print(msg)
