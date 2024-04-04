@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="node_modules/phaser/build/phaser.js"></script>
+</head>
+<body>
+<script>
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 200 }
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create
+    }
+};
+var game = new Phaser.Game(config);
+function preload () { }
+function create () {
+    this.add.text(16, 16, 'Hello!', 
+    {fontSize: '32px', fill: '#ffffff' });
+}
+</script>
+</body>
+</html>
