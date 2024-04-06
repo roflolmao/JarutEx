@@ -1,0 +1,20 @@
+import tkinter as tk
+app = tk.Tk()
+app.title("ตัวอย่าง Radiobutton")
+app.geometry("320x240")
+frame = tk.Frame(app)
+def sel():
+    label.config(text=str(choice.get()))   
+choice = tk.IntVar()
+label = tk.Label(app, width=40, height=2,font=("Tahoma",10))
+rd1 = tk.Radiobutton(frame,variable=choice, value=1, command=sel, text="เด็กเล็ก")
+rd2 = tk.Radiobutton(frame,variable=choice, value=2, command=sel, text="ประถม")
+rd3 = tk.Radiobutton(frame,variable=choice, value=3, command=sel, text="มัธยมต้น")
+rd1.select()
+label.config(text=str(choice.get()))
+rd1.pack(anchor = tk.W) # ชิดซ้าย
+rd2.pack(anchor = tk.W)
+rd3.pack(anchor = tk.W)
+frame.pack()
+label.pack()
+app.mainloop()
